@@ -50,9 +50,9 @@ go_gir() {
 
   # display nice little information message when done
   if [ $modules_removed -gt 0 ]; then
-    echo "$modules_removed node_modules successfully removed!"
+    echo "\033[90m $modules_removed node_modules successfully removed! \033[39m"
   else
-    echo "Our agent couldn't find any inactive node_modules directory."
+    echo "\033[90m Our agent couldn't find any inactive project. \033[39m"
   fi
 }
 
@@ -82,15 +82,18 @@ fi
 # if everything ok... press the green button!
 if [ $run -eq 1 ]; then
   echo ""
-  echo "Our agent is examining your files... Hold on a sec."
+  echo "\033[90m Our agent is examining your files... Hold on a sec. \033[39m"
   sleep 2
+  echo ""
   go_gir
   exit 0
 else
   if [ $is_dir -eq 0 ]; then
+    echo ""
     echo "Error: Invalid directory, please provide a valid one." >&2; exit 1
   fi
   if [ $is_number -eq 0 ]; then
+    echo ""
     echo "Error: Please provide a valid number." >&2; exit 1
   fi
 fi
