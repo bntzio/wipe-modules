@@ -88,10 +88,13 @@ if [ $run -eq 1 ]; then
   go_gir
   exit 0
 else
+  # something went wrong... abort the mission
+  # if $is_dir is invalid, show error message and exit
   if [ $is_dir -eq 0 ]; then
     echo ""
     echo "Error: Invalid directory, please provide a valid one." >&2; exit 1
   fi
+  # if $is_number is invalid, show error message and exit
   if [ $is_number -eq 0 ]; then
     echo ""
     echo "Error: Please provide a valid number." >&2; exit 1
