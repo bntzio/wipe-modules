@@ -33,12 +33,12 @@ go_gir() {
   # move to code directory
   cd $code_dir
 
-  # loop through code directory folders
-  for d in */ ; do
+  # find the code directories whose last modify time (mtime) is older than $last_modified days
+  # and loop through each resulting dir
+  for d in `find . -maxdepth 1 -type d -mtime +$last_modified`; do
     # move to code dir subdirectory
     cd $d
-    # find node_modules folder whose last modification time (mtime) is older than $last_modified days
-    if [ `find . -maxdepth 1 -type d -mtime +$last_modified -name 'node_modules'` ]
+    if [ `find . -maxdepth 1 -type d -name 'node_modules'` ]
     then
       # wipe the node_modules folder!
       rm -rf node_modules
