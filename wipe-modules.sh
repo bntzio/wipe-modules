@@ -48,8 +48,12 @@ go_gir() {
     cd ..
   done
 
-  # display nice little information message
-  echo "$modules_removed node_modules successfully removed!"
+  # display nice little information message when done
+  if [ $modules_removed -gt 0 ]; then
+    echo "$modules_removed node_modules successfully removed!"
+  else
+    echo "Our agent couldn't find any inactive node_modules directory."
+  fi
 }
 
 # if $1 parameter is --help or -h then show usage info
@@ -77,6 +81,9 @@ fi
 
 # if everything ok... press the green button!
 if [ $run -eq 1 ]; then
+  echo ""
+  echo "Our agent is examining your files... Hold on a sec."
+  sleep 2
   go_gir
   exit 0
 else
