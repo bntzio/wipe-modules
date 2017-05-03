@@ -52,6 +52,7 @@ go_gir() {
   echo "$modules_removed node_modules successfully removed!"
 }
 
+# if $1 parameter is --help or -h then show usage info
 if [ "$1" == "--help" -o "$1" == "-h" ]
 then
   usage
