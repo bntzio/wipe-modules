@@ -38,7 +38,7 @@ go_gir() {
     # move to code dir subdirectory
     cd $d
     # search for node_modules folder whose last modified date is >= than $last_modified days
-    if [ `find . -maxdepth 1 -type d -mtime -$last_modified -name 'node_modules'` ]
+    if [ `find . -maxdepth 1 -type d -mtime +$last_modified -name 'node_modules'` ]
     then
       # wipe the node_modules folder!
       rm -rf node_modules
