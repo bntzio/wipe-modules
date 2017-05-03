@@ -1,6 +1,6 @@
 # wipe-modules
 
-> A little agent that removes the node_modules folder of non-active projects
+> A little agent that removes the node_modules folder of non-active projects 🤖
 
 ![](agent-gir.gif)
 
@@ -48,7 +48,8 @@ $ wipe-modules --help
 
   Example: wipe-modules ~/code 30
 
-  That will remove the node_modules of your code projects whose last modification date >= 30 days (inactive for 30 days or more)
+  That will remove the node_modules of your ~/code projects
+  whose been inactive for 30 days or more.
 ```
 
 
