@@ -8,6 +8,26 @@ is_dir=0
 is_number=0
 run=0
 
+# usage info
+usage() {
+  cat <<EOF
+
+  Usage: wipe-modules [path] [days]
+
+  Path:
+    The full path of your code directory
+
+  Days:
+    The days you want to set to mark projects as inactive
+
+  Example: wipe-modules ~/code 30
+
+  That will remove the node_modules of your ~/code projects
+  whose been inactive for 30 days or more.
+
+EOF
+}
+
 # instructs agent gir to start ripping off those pesky node_modules
 go_gir() {
   # move to code directory
@@ -32,12 +52,18 @@ go_gir() {
   echo "$modules_removed node_modules successfully removed!"
 }
 
-# check if $1 parameter is a valid directory
-if [ -d "$code_dir" ]; then
-  is_dir=1
+if [ "$1" == "--help" -o "$1" == "-h" ]
+then
+  usage
+  exit 0
+else
+  # check if $1 parameter is a valid directory
+  if [ -d "$code_dir" ]; then
+    is_dir=1
+  fi
 fi
 
-# check is $2 parameter is a valid number (regex)
+# check if $2 parameter is a valid number (regex)
 regx='^[0-9]+$'
 if [[ $last_modified =~ $regx ]]; then
   is_number=1
