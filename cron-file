@@ -1,0 +1,1 @@
+0 11 * * * $HOME/bin/wipe-modules ~/code_dir 30
