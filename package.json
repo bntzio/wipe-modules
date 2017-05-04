@@ -2,8 +2,32 @@
   "name": "wipe-modules",
   "version": "0.1.0",
   "description": "A little agent that removes the node_modules folder of non-active projects",
+  "license": "MIT",
+  "repository": "bntzio/wipe-modules",
+  "author": {
+    "name": "Enrique Benitez",
+    "email": "hello@bntz.io",
+    "url": "bntz.io"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "global": "true",
   "scripts": [ "wipe-modules.sh" ],
   "install": "make install",
-  "files": [ "cron-file" ]
+  "files": [ "cron-file" ],
+  "keywords": [
+    "bash",
+    "shell",
+    "node_modules",
+    "nodejs",
+    "cleanup",
+    "performance",
+    "tools",
+    "utilities",
+    "unix",
+    "cron",
+    "crontab",
+    "cron-jobs"
+  ]
 }
