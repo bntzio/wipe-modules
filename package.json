@@ -1,6 +1,6 @@
 {
   "name": "wipe-modules",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A little agent that removes the node_modules folder of non-active projects",
   "license": "MIT",
   "repository": "bntzio/wipe-modules",
