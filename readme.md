@@ -27,7 +27,19 @@ Problem solved now! 🎉🎊
 
 ## Install
 
+Can be installed with `npm` or `curl`.
+
+### npm
+
+```console
+$ npm install --global wipe-modules
 ```
+
+That's it! 😄
+
+### curl
+
+```console
 $ curl -L https://raw.githubusercontent.com/bntzio/wipe-modules/master/wipe-modules.sh -o ~/bin/wipe-modules && chmod +x ~/bin/wipe-modules
 ```
 
@@ -72,6 +84,8 @@ The default `cron-file` holds the following syntax:
 That is the crontab (cron table) file, it instructs cron to run the `wipe-modules ~/code_dir 30` script everyday at 11:00 am.
 
 Edit the `cron-file` to match your own needs, see [how to set up a crontab](https://en.wikipedia.org/wiki/Cron#Overview) for more info.
+
+Note: depending on how you installed `wipe-modules` you need to set the correct path of the `wipe-modules.sh` shell script in your `cron-file` for cron to find and execute the script.
 
 Now set the `cron-file` crontab file in cron using:
 
