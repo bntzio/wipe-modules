@@ -17,7 +17,7 @@
   },
   "global": "true",
   "scripts": [ "wipe-modules.sh" ],
-  "install": "make install",
+  "install": "install -b wipe-modules.sh ${PREFIX:-/usr/local}/bin/wipe-modules",
   "files": [
     "cron-file",
     "wipe-modules.sh"
