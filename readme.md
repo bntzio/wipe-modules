@@ -29,7 +29,7 @@ Problem solved now! 🎉🎊
 
 ## Install
 
-Can be installed with `npm` or `curl`.
+Can be installed with [npm](https://www.npmjs.com/), [bpkg](http://www.bpkg.io/) or [curl](https://curl.haxx.se/).
 
 ### npm
 
@@ -39,11 +39,21 @@ $ npm install --global wipe-modules
 
 That's it! 😄
 
+### bpkg
+
+```console
+$ bpkg install -g bntzio/wipe-modules
+```
+
+Done! 😃
+
 ### curl
 
 ```console
 $ curl -L https://raw.githubusercontent.com/bntzio/wipe-modules/master/wipe-modules.sh -o ~/bin/wipe-modules && chmod +x ~/bin/wipe-modules
 ```
+
+All set! 🙂
 
 If you're using zsh or a different shell, make sure to have `~/bin` in your `$PATH`.
 
