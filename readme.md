@@ -13,6 +13,8 @@ Enter `wipe-modules`, a little agent that wipes (eats, literally) that big `node
 
 Why in Earth would you want to have those monster-sized `node_modules` folders on inactive projects? You got your `package.json` to recreate it whenever you want, right?
 
+[Watch wipe-modules in action!](https://github.com/bntzio/wipe-modules#wipe-modules-in-action) 📺
+
 
 ## Inspiration
 
@@ -108,6 +110,13 @@ To edit a crontab, use `crontab -e` and to delete all crontabs use `crontab -r`.
 Note that `crontab -r` will destroy all your crontabs, that's why it's a good idea to keep your crontab commands in a `cron-file`.
 
 Cron is only supported in unix operating systems.
+
+
+## `wipe-modules` in action!
+
+Watch this screencast to learn how to use `wipe-modules` and see what it does.
+
+[![asciicast](https://asciinema.org/a/119319.png)](https://asciinema.org/a/119319)
 
 
 ## License
