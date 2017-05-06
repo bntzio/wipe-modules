@@ -62,13 +62,16 @@ If you're using zsh or a different shell, make sure to have `~/bin` in your `$PA
 ```
 $ wipe-modules --help
 
-  Usage: wipe-modules [path] [days]
+  Usage: wipe-modules [path] [days] [options]
 
   Path:
     The full path of your code directory
 
   Days:
     The days you want to set to mark projects as inactive
+
+  Options:
+    -D, --dry      Only show node_modules to be removed
 
   Example: wipe-modules ~/code 30
 
