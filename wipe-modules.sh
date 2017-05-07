@@ -46,9 +46,12 @@ go_gir() {
 
   # find the code directories whose last modify time (mtime) is older than $last_modified days
   # and loop through each resulting dir
-  for d in `find . -maxdepth 1 -type d -mtime +$last_modified`; do
+  find . -maxdepth 1 -type d -mtime +$last_modified | while read d; do
+    if [ "$d" == "." ]; then
+      continue
+    fi
     # move to code dir subdirectory
-    cd $d
+    cd "$d"
     if [ `find . -maxdepth 1 -type d -name 'node_modules'` ]
     then
       # if $dry is not --dry (or -D) then just print the name of the folder that
