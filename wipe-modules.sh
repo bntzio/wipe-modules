@@ -51,7 +51,7 @@ go_gir() {
       continue
     fi
     # move to code dir subdirectory
-    cd $d
+    cd "$d"
     if [ `find . -maxdepth 1 -type d -name 'node_modules'` ]
     then
       # if $dry is not --dry (or -D) then just print the name of the folder that
