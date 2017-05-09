@@ -37,6 +37,9 @@ wipe() {
   dir="$1" # now dir is the 1st parameter ($1)
   dir="${dir%/}" # strip trailing slash
   dir="${dir##*/}" # strip path and leading slash
+  if [ "$dir" == "." ]; then
+    continue
+  fi
   cd "$dir"
   if [ $(find . -maxdepth 1 -type d -name 'node_modules') ]; then
     # if $dry is not --dry (or -D) then just print the name of the folder that
