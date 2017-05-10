@@ -40,7 +40,7 @@ wipe() {
   if [ "$dir" == "." ]; then
     continue
   fi
-  cd "$dir"
+  cd -- "$dir"
   if [ $(find . -maxdepth 1 -type d -name 'node_modules') ]; then
     # if $dry is not --dry (or -D) then just print the name of the folder that
     # matches the search
@@ -76,7 +76,7 @@ display_message() {
 # instructs agent gir to start ripping off those pesky node_modules
 go_gir() {
   # move to code directory
-  cd $code_dir
+  cd -- $code_dir
 
   # if $dry is --dry (or -D) then show message
   if [ "$dry" == "--dry" -o "$dry" == "-D" ]; then
