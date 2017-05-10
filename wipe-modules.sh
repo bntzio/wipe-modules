@@ -37,14 +37,14 @@ wipe() {
   dir="$1" # now dir is the 1st parameter ($1)
   dir="${dir%/}" # strip trailing slash
   dir="${dir##*/}" # strip path and leading slash
-  if [ "$dir" == "." ]; then
-    continue
+  if [ "$dir" = "." ]; then
+    return
   fi
-  cd -- "$dir"
-  if [ $(find . -maxdepth 1 -type d -name 'node_modules') ]; then
+  cd -- "$dir" || exit
+  if [ "$(find . -maxdepth 1 -type d -name 'node_modules')" ]; then
     # if $dry is not --dry (or -D) then just print the name of the folder that
     # matches the search
-    if [ "$dry" == "--dry" -o "$dry" == "-D" ]
+    if [ "$dry" = "--dry" ] || [ "$dry" = "-D" ]
     then
       # print the current directory name
       echo "\033[90m $dir \033[39m"
@@ -54,7 +54,7 @@ wipe() {
     fi
 
     # counter for modules to be removed
-    modules_removed=$(expr $modules_removed + 1)
+    modules_removed=$((modules_removed + 1))
   fi
   cd ..
 }
@@ -62,7 +62,7 @@ wipe() {
 # exit message
 display_message() {
   if [ $modules_removed -gt 0 ]; then
-    if [ "$dry" == "--dry" -o "$dry" == "-D" ]; then
+    if [ "$dry" = "--dry" ] || [ "$dry" = "-D" ]; then
       echo ""
       echo "\033[90m $modules_removed node_modules were found! \033[39m"
     else
@@ -76,10 +76,10 @@ display_message() {
 # instructs agent gir to start ripping off those pesky node_modules
 go_gir() {
   # move to code directory
-  cd -- $code_dir
+  cd -- "$code_dir" || exit
 
   # if $dry is --dry (or -D) then show message
-  if [ "$dry" == "--dry" -o "$dry" == "-D" ]; then
+  if [ "$dry" = "--dry" ] || [ "$dry" = "-D" ]; then
     echo "\033[90m The node_modules in the following directories can be wiped out: \033[39m"
     sleep 2
     echo ""
@@ -88,9 +88,9 @@ go_gir() {
   # find $code_dir directories whose last modify time (mtime) is older than
   # $last_modified days, loop through each resulting dir and execute wipe function
   # then display message
-  find . -maxdepth 1 -type d -mtime +$last_modified |
+  find . -maxdepth 1 -type d -mtime +"$last_modified" |
   {
-    while read d; do
+    while read -r d; do
       wipe "$d"
     done
 
@@ -99,7 +99,7 @@ go_gir() {
 }
 
 # if $1 parameter is --help or -h then show usage info
-if [ "$1" == "--help" -o "$1" == "-h" ]
+if [ "$1" = "--help" ]|| [ "$1" = "-h" ]
 then
   usage
   exit 0
@@ -111,13 +111,13 @@ else
 fi
 
 # check if $2 parameter is a valid number (regex)
-regx='^[0-9]+$'
-if [[ $last_modified =~ $regx ]]; then
+last_modified=$(echo "$last_modified" | grep -E '^[0-9]+$')
+if [ -n "$last_modified" ]; then
   is_number=1
 fi
 
 # if valid parameters are being passed then prepare for action
-if [ $is_dir -eq 1 -a $is_number -eq 1 ]; then
+if [ $is_dir -eq 1 ] && [ $is_number -eq 1 ]; then
   run=1
 fi
 
