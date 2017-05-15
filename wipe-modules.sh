@@ -99,7 +99,7 @@ go_gir() {
 }
 
 # if $1 parameter is --help or -h then show usage info
-if [ "$1" = "--help" ]|| [ $1 = "-h" ]
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]
 then
   usage
   exit 0
