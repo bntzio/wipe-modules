@@ -1,4 +1,4 @@
-# wipe-modules
+# wipe-modules [![Build Status](https://travis-ci.org/bntzio/wipe-modules.svg?branch=master)](https://travis-ci.org/bntzio/wipe-modules)
 
 > A little agent that removes the node_modules folder of non-active projects 🗑️
 
