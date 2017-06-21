@@ -8,6 +8,8 @@ modules_removed=0
 is_dir=0
 is_number=0
 run=0
+initial_size=0
+end_size=0
 
 # usage info
 usage() {
@@ -67,6 +69,9 @@ display_message() {
       echo "\033[90m $modules_removed node_modules were found! \033[39m"
     else
       echo "\033[90m $modules_removed node_modules successfully removed! \033[39m"
+      echo ""
+      echo "\033[90m Your initial directory size was $initial_size \033[39m"
+      echo "\033[90m Now it is $end_size! \033[39m"
     fi
   else
     echo "\033[90m Our agent couldn't find any inactive projects. \033[39m"
@@ -77,6 +82,9 @@ display_message() {
 go_gir() {
   # move to code directory
   cd -- "$code_dir" || exit
+
+  # grab the initial directory size
+  initial_size=$(du -hs . | awk -F'\t' '{print $1;}')
 
   # if $dry is --dry (or -D) then show message
   if [ "$dry" = "--dry" ] || [ "$dry" = "-D" ]; then
@@ -94,6 +102,10 @@ go_gir() {
       wipe "$d"
     done
 
+    # grab the new directory size!
+    end_size=$(du -hs . | awk -F'\t' '{print $1;}')
+
+    # show info
     display_message
   }
 }
