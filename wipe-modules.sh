@@ -1,9 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # variables
-code_dir=$1
-last_modified=$2
-dry=$3
 modules_removed=0
 is_dir=0
 is_number=0
@@ -15,7 +12,11 @@ end_size=0
 usage() {
   cat <<EOF
 
-  Usage: wipe-modules [path] [days] [options]
+  Usage: wipe-modules [options] [path] [days]
+
+  Options:
+    -d      Only show node_modules to be removed
+    -l <#>  Specify a depth level
 
   Path:
     The full path of your code directory
@@ -23,30 +24,53 @@ usage() {
   Days:
     The days you want to set to mark projects as inactive
 
-  Options:
-    -D, --dry      Only show node_modules to be removed
-
   Example: wipe-modules ~/code 30
 
   That will remove the node_modules of your ~/code projects
   whose been inactive for 30 days or more.
 
+  Keep in mind the order of the parameters you pass, first 
+  goes the options (optional) and then the path and days (required)
+
 EOF
+exit 0
 }
+
+# getops parameters
+while getopts dhl: flag; do
+  case "$flag" in
+    d) dry=1;;
+    h) usage;;
+    l) level=$OPTARG;;
+    ?) usage;;
+  esac
+done
+
+# shift parameters!
+shift $((OPTIND - 1))
+
+# positional parameters
+code_dir=$1
+last_modified=$2
+
+# default depth level to 1 if not provided
+if [ -z "$level" ]; then
+  level=1
+fi
 
 # wipe node_modules
 wipe() {
   dir="$1" # now dir is the 1st parameter ($1)
   dir="${dir%/}" # strip trailing slash
   dir="${dir##*/}" # strip path and leading slash
-  if [ "$dir" = "." ]; then
+  if [[ "$dir" = .* ]]; then
     return
   fi
-  cd -- "$dir" || exit
-  if [ "$(find . -maxdepth 1 -type d -name 'node_modules')" ]; then
-    # if $dry is not --dry (or -D) then just print the name of the folder that
+  cd "$dir" || exit
+  if [ "$(find . -maxdepth "$level" -type d -name 'node_modules')" ]; then
+    # if $dry exists then just print the name of the folder that
     # matches the search
-    if [ "$dry" = "--dry" ] || [ "$dry" = "-D" ]
+    if [ -n "$dry" ]
     then
       # print the current directory name
       echo "\033[90m $dir \033[39m"
@@ -64,7 +88,7 @@ wipe() {
 # exit message
 display_message() {
   if [ $modules_removed -gt 0 ]; then
-    if [ "$dry" = "--dry" ] || [ "$dry" = "-D" ]; then
+    if [ -n "$dry" ]; then
       echo ""
       echo "\033[90m $modules_removed node_modules were found! \033[39m"
     else
@@ -81,13 +105,13 @@ display_message() {
 # instructs agent gir to start ripping off those pesky node_modules
 go_gir() {
   # move to code directory
-  cd -- "$code_dir" || exit
+  cd "$code_dir" || exit
 
   # grab the initial directory size
   initial_size=$(du -hs . | awk -F'\t' '{print $1;}')
 
   # if $dry is --dry (or -D) then show message
-  if [ "$dry" = "--dry" ] || [ "$dry" = "-D" ]; then
+  if [ -n "$dry" ]; then
     echo "\033[90m The node_modules in the following directories can be wiped out: \033[39m"
     sleep 2
     echo ""
@@ -110,16 +134,9 @@ go_gir() {
   }
 }
 
-# if $1 parameter is --help or -h then show usage info
-if [ "$1" = "--help" ] || [ "$1" = "-h" ]
-then
-  usage
-  exit 0
-else
-  # check if $1 parameter is a valid directory
-  if [ -d "$code_dir" ]; then
-    is_dir=1
-  fi
+# check if $1 parameter is a valid directory
+if [ -d "$code_dir" ]; then
+  is_dir=1
 fi
 
 # check if $2 parameter is a valid number (regex)
