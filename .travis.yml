@@ -9,7 +9,7 @@ before_install:
   - docker pull koalaman/shellcheck
 
 script:
- - docker run -v $(pwd):/scripts koalaman/shellcheck /scripts/wipe-modules.sh
+ - docker run -v $(pwd):/scripts koalaman/shellcheck -e SC1117 /scripts/wipe-modules.sh
 
 matrix:
   fast_finish: true
