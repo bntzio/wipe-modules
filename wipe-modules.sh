@@ -73,7 +73,7 @@ wipe() {
     if [ -n "$dry" ]
     then
       # print the current directory name
-      echo "\033[90m $dir \033[39m"
+      echo "$dir"
     else
       # wipe the node_modules folder!
       rm -rf node_modules
@@ -90,15 +90,15 @@ display_message() {
   if [ $modules_removed -gt 0 ]; then
     if [ -n "$dry" ]; then
       echo ""
-      echo "\033[90m $modules_removed node_modules were found! \033[39m"
+      echo "$modules_removed node_modules were found!"
     else
-      echo "\033[90m $modules_removed node_modules successfully removed! \033[39m"
+      echo "$modules_removed node_modules successfully removed!"
       echo ""
-      echo "\033[90m Your initial directory size was $initial_size \033[39m"
-      echo "\033[90m Now it is $end_size! \033[39m"
+      echo "Your initial directory size was $initial_size"
+      echo "Now it is $end_size!"
     fi
   else
-    echo "\033[90m Our agent couldn't find any inactive projects. \033[39m"
+    echo "Our agent couldn't find any inactive projects."
   fi
 }
 
@@ -112,7 +112,7 @@ go_gir() {
 
   # if $dry is --dry (or -D) then show message
   if [ -n "$dry" ]; then
-    echo "\033[90m The node_modules in the following directories can be wiped out: \033[39m"
+    echo " The node_modules in the following directories can be wiped out:"
     sleep 2
     echo ""
   fi
@@ -153,7 +153,7 @@ fi
 # if everything ok... press the green button!
 if [ $run -eq 1 ]; then
   echo ""
-  echo "\033[90m Our agent is examining your files... Hold on a sec. \033[39m"
+  echo "Our agent is examining your files... Hold on a sec."
   sleep 2
   echo ""
   go_gir
