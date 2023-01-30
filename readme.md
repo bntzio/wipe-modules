@@ -29,7 +29,7 @@ Problem solved now! 🎉🎊
 
 ## Install
 
-Can be installed with [npm](https://www.npmjs.com/), [bpkg](http://www.bpkg.io/) or [curl](https://curl.haxx.se/).
+Can be installed with [npm](https://www.npmjs.com/), [bpkg](https://bpkg.sh/) or [curl](https://curl.haxx.se/).
 
 ### npm
 
